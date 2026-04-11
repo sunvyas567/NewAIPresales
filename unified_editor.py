@@ -5,8 +5,8 @@ from editor_utils import payload_to_html, html_to_payload
 import requests
 
 
-API_URL = "http://localhost:8001"
-
+import os
+API_URL = os.getenv("API_URL")
 
 from parser_utils import parse_to_payload
 

@@ -15,8 +15,8 @@ from reachouts_ui import show_reachouts
 from templates_ui import show_templates
 
 
-API_URL = "http://localhost:8001"
-
+import os
+API_URL = os.getenv("API_URL")
  
 def headers():
         return {

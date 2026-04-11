@@ -3,8 +3,8 @@ import requests
 from utils import badge, headers, render_pipeline
 from unified_editor import unified_editor
 
-API_URL = "http://localhost:8001"
-
+import os
+API_URL = os.getenv("API_URL")
 
 def show_proposals():
 

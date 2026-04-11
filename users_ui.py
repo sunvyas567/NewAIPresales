@@ -1,8 +1,8 @@
 import streamlit as st
 import requests
 
-API_URL = "http://localhost:8001"
-
+import os
+API_URL = os.getenv("API_URL")
 
 def show_users():
 

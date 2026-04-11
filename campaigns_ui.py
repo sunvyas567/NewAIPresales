@@ -9,8 +9,8 @@ import streamlit.components.v1 as components
 from utils import headers
 from unified_editor import unified_editor
 
-API_URL = "http://localhost:8001"
-
+import os
+API_URL = os.getenv("API_URL")
 def show_campaingns():
 
     st.title("📢 Campaigns")

@@ -4,8 +4,8 @@ import pandas as pd
 #from app.ui.demo_ui import get_demo_leads
 from utils import headers
 
-API_URL = "http://localhost:8001"
-
+import os
+API_URL = os.getenv("API_URL")
 def show_leads():
 
     st.title("Leads")

@@ -4,8 +4,8 @@ import streamlit as st
 import requests
 import pandas as pd
 
-API_URL = "http://localhost:8001"
-
+import os
+API_URL = os.getenv("API_URL")
 def show_reachouts():
 
     st.title("Reachouts")
