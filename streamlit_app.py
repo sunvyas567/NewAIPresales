@@ -3,8 +3,10 @@ import streamlit as st
 
 import sys
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
-API_URL = "http://localhost:8001"
+API_URL = os.getenv("API_URL")
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 # ------------------------------------------------
