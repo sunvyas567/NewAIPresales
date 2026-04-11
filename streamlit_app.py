@@ -1,6 +1,12 @@
+import requests
 import streamlit as st
 
+import sys
+import os
 
+API_URL = "http://localhost:8001"
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 # ------------------------------------------------
 # Page Configuration
 # ------------------------------------------------
@@ -11,6 +17,15 @@ st.set_page_config(
     layout="wide"
 )
 
+
+# -----------------------
+# HIDE DEFAULT SIDEBAR
+# -----------------------
+st.markdown("""
+<style>
+[data-testid="stSidebarNav"] {display: none;}
+</style>
+""", unsafe_allow_html=True)
 
 # ------------------------------------------------
 # Global Styling
@@ -94,9 +109,26 @@ if st.session_state.mode == "landing":
 
 elif st.session_state.mode == "demo":
 
-    from demo_ui import show_demo
+    #if st.button("🚀 Try Demo"):
 
-    show_demo()
+    res = requests.post(
+        f"{API_URL}/auth/login",
+        json={"email": "demo@demo.com", "password": "demo123"}
+    )
+
+    data = res.json()
+
+    st.session_state.token = data["access_token"]
+    st.session_state.tenant_id = data["tenant_id"]
+    st.session_state.user = "demo@demo.com"
+    st.session_state.demo_mode = True
+    st.session_state.mode = "app"
+    st.rerun()
+    #show_main_app()
+
+    #from demo_ui import show_demo
+
+    #show_demo()
 
 
 

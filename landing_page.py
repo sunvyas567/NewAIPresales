@@ -5,7 +5,7 @@ def show_landing_page():
 
     #st.set_page_config(layout="wide")
 
-    st.title("🚀 AgenticAI")
+    st.title("🚀 AI Assisted Agentic Presales" )
     st.subheader("AI-Powered Presales Automation Platform")
 
     st.write(
@@ -18,13 +18,13 @@ def show_landing_page():
 
     with col1:
 
-        st.markdown("### What AgenticAI Does")
+        st.markdown("### What Agentic Presales Does")
 
-        st.write("• Lead outreach automation")
-        st.write("• Campaign management")
+        st.write("• Lead Processing & outreach automation")
+        st.write("• Campaign management (LinkedIn, Email)")
         st.write("• Opportunity tracking")
-        st.write("• CRM synchronization")
-        st.write("• AI proposal generation")
+        st.write("• CRM synchronization (Odoo, Salesforce)")
+        st.write("• AI proposal generation ( Proposal & SoW drafting)")
 
     with col2:
 
@@ -36,15 +36,23 @@ def show_landing_page():
 
         st.write(
             """
-            Lead  
+            Lead Processing  
             ↓  
-            Campaign Outreach  
+            Campaign Outreach
+            (LinkedIn, Email)  
             ↓  
             Opportunity Creation  
             ↓  
-            CRM Sync  
+            CRM Sync
+            (Odoo, Salesforce)  
             ↓  
             Proposal Generation
+            (PPT.PDF)  
+            ↓  
+            SoW Generation
+            (PDF, Word)  
+            ↓  
+            Dashboard & Analytics
             """
         )
 
@@ -64,7 +72,7 @@ def show_landing_page():
 
     st.markdown("---")
 
-    st.markdown("### Built for Presales Teams")
+    st.markdown("### Built for Sales & Presales Teams")
 
     col1, col2, col3 = st.columns(3)
 

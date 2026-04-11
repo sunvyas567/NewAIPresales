@@ -1,10 +1,37 @@
+from utils import headers
+
 import streamlit as st
 import requests
+import pandas as pd
 
-API_BASE = "http://localhost:8000/api"
+API_URL = "http://localhost:8001"
 
+def show_reachouts():
 
-def render_reachout():
+    st.title("Reachouts")
+
+    reachouts = requests.get(f"{API_URL}/reachouts", headers=headers()).json()
+
+    df = pd.DataFrame(reachouts)
+    #st.dataframe(df)
+    if not df.empty:
+        st.dataframe(df)
+        #rid = st.selectbox("Select", df["id"])
+
+        #if st.button("Generate Message"):
+        #    res = requests.post(f"{API_URL}/reachouts/{rid}/render")
+        #    st.session_state["msg"] = res.json()["message"]
+
+        #if "msg" in st.session_state:
+        #    st.text_area("Message", st.session_state["msg"], height=250)
+
+        #if st.button("Send"):
+        #    requests.post(f"{API_URL}/reachouts/{rid}/send")
+        #    st.success("Sent")
+    else:
+        st.warning("No reachouts available")
+
+def render_reachout_olf():
 
     st.subheader("📨 Reachout Center")
 

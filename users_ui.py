@@ -10,18 +10,21 @@ def show_users():
 
     st.subheader("Create User")
 
+    demo = st.session_state.get("demo_mode", False)
     #name = st.text_input("Name")
+    if demo:
+        st.info("Demo Mode: User creation disabled")
+    else:
+        email = st.text_input("Email")
 
-    email = st.text_input("Email")
+        password = st.text_input("Password", type="password")
 
-    password = st.text_input("Password", type="password")
+        role = st.selectbox(
+            "Role",
+            ["admin", "presales", "sales", "viewer"]
+        )
 
-    role = st.selectbox(
-        "Role",
-        ["admin", "presales", "sales", "viewer"]
-    )
-
-    if st.button("Create User"):
+    if st.button("Create User", disabled=demo):
 
         res = requests.post(
             f"{API_URL}/users/create",
@@ -57,7 +60,7 @@ def show_users():
         if u["role"] in ["admin", "sales"]:
             col3.button("Delete", disabled=True, key=f"del_{u['id']}")
         else:
-            if col3.button("Delete", key=f"del_{u['id']}"):
+            if col3.button("Delete", key=f"del_{u['id']}",disabled=demo):
                 requests.delete(f"{API_URL}/users/{u['id']}")
                 st.rerun()
         #if col3.button("Delete", key=f"user_{u['id']}"):

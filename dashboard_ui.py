@@ -1,5 +1,6 @@
 import streamlit as st
 import requests
+from utils import headers
 
 API_URL = "http://localhost:8001"
 
@@ -27,10 +28,12 @@ def show_pipeline():
 
     status = res.json()
 
+    print("CRM status in pipeline", status)
+
     if status["status"] == "offline":
         st.warning("CRM integration unavailable")
 
-    res = requests.get(f"{API_URL}/opportunities/pipeline",timeout=5)
+    res = requests.get(f"{API_URL}/opportunities/pipeline",headers=headers(),timeout=5)
 
     #print("Pipeline response", res.status_code, res.text)
     if res.status_code != 200:
@@ -38,7 +41,7 @@ def show_pipeline():
         return
     data = res.json()
 
-    #print("Pipeline data", data)
+    print("Pipeline data", data)
     #return
     total_deals = sum(len(v) for v in data.values())
 
