@@ -8,7 +8,7 @@ import requests
 API_URL = "http://localhost:8001"
 
 
-from core.parser_utils import parse_to_payload
+from parser_utils import parse_to_payload
 
 def unified_editor(
     title,
