@@ -1,2 +1,5 @@
 python-dotenv
 beautifulsoup4
+pandas
+requests
+streamlit-quill
