@@ -13,6 +13,8 @@ def show_templates():
     demo = st.session_state.get("demo_mode", False)
 
     if demo:
+            st.success("Templates creation for Campaign proposal SoW attachment & generation")
+    if demo:
         st.info("Demo Mode: Template creation disabled")
     else:
         name = st.text_input("Name")
@@ -29,3 +31,5 @@ def show_templates():
 
     df = pd.DataFrame(templates)
     st.dataframe(df)
+
+    

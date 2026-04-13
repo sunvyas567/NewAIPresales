@@ -10,12 +10,16 @@ def show_reachouts():
 
     st.title("Reachouts")
 
+    if st.session_state.get("demo_mode", False):
+            st.success("Step 3: Reachouts are sent post Lead and Campaign creation → Eligible reachouts can be converted to opportunities")
+
     reachouts = requests.get(f"{API_URL}/reachouts", headers=headers()).json()
 
     df = pd.DataFrame(reachouts)
     #st.dataframe(df)
     if not df.empty:
         st.dataframe(df)
+        
         #rid = st.selectbox("Select", df["id"])
 
         #if st.button("Generate Message"):
@@ -53,7 +57,7 @@ def render_reachout_olf():
             }
 
             response = requests.post(
-                f"{API_BASE}/agents/run",
+                f"{API_URL}/agents/run",
                 params={"agent_type": "email"},
                 json=payload
             )
@@ -73,7 +77,7 @@ def render_reachout_olf():
                 "body": body
             }
 
-            requests.post(f"{API_BASE}/reachout/email", json=send_payload)
+            requests.post(f"{API_URL}/reachout/email", json=send_payload)
             st.success("Email sent")
 
     else:
@@ -87,7 +91,7 @@ def render_reachout_olf():
             }
 
             response = requests.post(
-                f"{API_BASE}/agents/run",
+                f"{API_URL}/agents/run",
                 params={"agent_type": "linkedin"},
                 json=payload
             )
@@ -100,7 +104,7 @@ def render_reachout_olf():
 
         if st.button("Post to LinkedIn"):
             requests.post(
-                f"{API_BASE}/reachout/linkedin",
+                f"{API_URL}/reachout/linkedin",
                 json={"message": message}
             )
             st.success("Posted successfully")

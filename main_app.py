@@ -209,7 +209,7 @@ def show_main_app():
 
         section = st.radio(
             "Go to",
-            ["Dashboard", "Sales", "Engagement", "Admin"]
+            ["Sales", "Presales Engagement", "Admin", "Dashboard"]
         )
 
         if section == "Dashboard":
@@ -218,13 +218,13 @@ def show_main_app():
         elif section == "Sales":
             menu = st.radio(
                 "Sales",
-                ["Leads", "Opportunities", "Proposals"]
+                ["Leads", "Campaigns", "ReachOut" ]
             )
 
-        elif section == "Engagement":
+        elif section == "Presales Engagement":
             menu = st.radio(
-                "Engagement",
-                ["Campaigns", "ReachOut"]
+                "Presale Engagement",
+                ["Opportunities", "Proposals & SoW"]
             )
 
         elif section == "Admin":
@@ -333,5 +333,5 @@ def show_main_app():
     # ==============================
     # PROPOSALS
     # ==============================
-    elif menu == "Proposals":
+    elif menu == "Proposals & SoW":
         show_proposals()

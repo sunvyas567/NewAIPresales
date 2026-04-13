@@ -12,6 +12,8 @@ def show_proposals():
 
     demo = st.session_state.get("demo_mode", False)
 
+    if demo:
+            st.success("Step 5 & 6: Proposals created , SOW generated and approved → Ready for download")
     # -------------------------
     # Opportunity
     # -------------------------
@@ -73,11 +75,6 @@ def show_proposals():
         index=0 if not demo else 1,
         disabled=not is_open
     )
-    #mode = st.radio(
-    #    "Mode",
-    #    ["Template Only", "AI Assisted"],
-    #    horizontal=True
-    #)
 
     use_ai = mode == "AI Assisted"
     # -------------------------
@@ -112,20 +109,6 @@ def show_proposals():
     # -------------------------
     # Generate
     # -------------------------
-
-    #if selected.get("status") == "GENERATED":
-    #    st.button("Generated", disabled=True)
-    #else:
-    #    if st.button("Generate"):
-    #        requests.post(
-    #            f"{API_URL}/proposals/{proposal_id}/generate",
-    #            params={"template_id": template_id, "use_ai": use_ai},
-    #            headers=headers()
-    #        )
-    #        st.rerun()
-    # -------------------------
-    # Generate
-    # -------------------------
     if selected["status"] != "GENERATED":
         if st.button("Generate", disabled=not is_open):
             requests.post(
@@ -140,10 +123,6 @@ def show_proposals():
     # -------------------------
     st.subheader("Edit Proposal")
 
-    #res = requests.get(
-    #f"{API_URL}/proposals/{proposal_id}/latest?type=proposal",
-    #headers=headers()
-    #).json()
 
     unified_editor(
         title="📄 Edit Proposal",
@@ -152,32 +131,7 @@ def show_proposals():
         headers=headers,
         key_prefix=f"proposal_{proposal_id}"
     )
-    #edited = st.text_area(
-    #    "Edit Proposal",
-    #    value=res.get("formatted", ""),   # 🔥 already clean
-    #    height=400
-    #)
-
-    #if st.button("Save Proposal"):
-    #    requests.post(
-    #        f"{API_URL}/proposals/{proposal_id}/update",
-    #        json={"content": edited},
-    #        headers=headers()
-    #    )
-    #    st.success("Saved")
-    #proposal_content = requests.get(
-    #f"{API_URL}/proposals/{proposal_id}/latest?type=proposal"
-#).json()
- #   content = st.text_area("Proposal Content", value=proposal_content.get("content", ""), height=300)
-
-  #  if st.button("Update Proposal"):
-  #      requests.post(
-  #          f"{API_URL}/proposals/{proposal_id}/edit",
-  #          json={"content": content},
-  #          headers=headers()
-  #      )
-  #      st.success("Updated")
-
+    
     # -------------------------
     # SOW
     # -------------------------
@@ -209,11 +163,7 @@ def show_proposals():
             horizontal=True,
             disabled=not is_sow_not_generated
         )
-        #mode = st.radio(
-        #    "Mode",
-        #    ["Template Only", "AI Assisted"],
-        #    horizontal=True
-        #)
+        
 
         use_ai_for_sow = sow_mode == "AI Assisted"
         if st.button("Generate SOW"):
@@ -229,36 +179,6 @@ def show_proposals():
         key_prefix=f"sow_{proposal_id}"
     )
     #res = requests.get(
-    #f"{API_URL}/proposals/{proposal_id}/latest?type=sow",
-    #    headers=headers()
-    #).json()
-
-    #edited_sow = st.text_area(
-    #    "Edit SOW",
-    #    value=res.get("formatted", ""),
-    #    height=400
-    #)
-
-    #if st.button("Save SOW"):
-    #    requests.post(
-    #        f"{API_URL}/proposals/{proposal_id}/update-sow",
-    #        json={"content": edited_sow},
-    #        headers=headers()
-    #    )
-    #    st.success("Saved")
-    #sow_content = requests.get(
-    #f"{API_URL}/proposals/{proposal_id}/latest?type=sow"
-#).json()
- #   sow_text = st.text_area("Edit SOW", value=sow_content.get("content", ""), height=200)
-#
-#    if st.button("Update SOW"):
-#        requests.post(
-#            f"{API_URL}/proposals/{proposal_id}/sow/edit",
-#            json={"content": sow_text},
-#            headers=headers()#
-#        )
-
-    #st.link_button("Download SOW", f"{API_URL}/proposals/{proposal_id}/sow/download")
 
     if st.button("Download SOW"):
 
@@ -333,4 +253,5 @@ def show_proposals():
             )
         else:
             st.error("Download failed")
+
     

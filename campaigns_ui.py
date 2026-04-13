@@ -4,8 +4,6 @@ import requests
 import pandas as pd
 import streamlit.components.v1 as components
 
-#from app.ui.main_app import to_unicode_bold
-#from app.ui.mqinOLD import to_unicode_bold
 from utils import headers
 from unified_editor import unified_editor
 
@@ -95,6 +93,9 @@ def show_campaingns():
     st.header("Create Campaign")
 
     demo = st.session_state.get("demo_mode", False)
+
+    if demo:
+        st.success("Step 2: Campaign Are created and executed → by sending LinkedIn/Email outreach")
 
     if demo:
         demo_campaigns = requests.get(f"{API_URL}/campaigns", headers=headers()).json()
@@ -227,18 +228,7 @@ def show_campaingns():
         else:
             st.subheader("LinkedIn Message Builder")
 
-        #col1, col2, col3 = st.columns([1,1,2])
-
-        #with col1:
-        #    action = st.selectbox("Format", ["Bold", "Bullets", "Emoji"])
-
-        #with col2:
-        #    mode = st.radio("Apply to", ["All", "Lines"])
-
-        #with col3:
-        #    start_line = st.number_input("Start Line", min_value=1, value=1)
-       #     end_line = st.number_input("End Line", min_value=1, value=1)
-
+       
         col1, col2 = st.columns(2)
 
         # -----------------------
@@ -296,8 +286,8 @@ def show_campaingns():
             <div style="background:#f3f2ef;padding:20px;">
                 <div style="background:white;padding:16px;border-radius:10px;">
                     <b>Your Name</b><br><br>
-                    <div style="white-space:pre-wrap;font-size:14px;">
-                        {linkedin_message}
+                    <div style="white-space:pre-line;padding-left: 0;:margin-left: 0;;font-size:14px;">
+                    {linkedin_message.strip()}
                     </div>
                 </div>
             </div>
@@ -305,53 +295,6 @@ def show_campaingns():
 
             components.html(preview_html, height=350)
         #with col1:
-        #    linkedin_message = st.text_area(
-        #        "Edit Message",
-        #        value=display_text,
-        #        height=350
-        #    )
-
-        # -----------------------
-        # PREVIEW
-        # -----------------------
-
-        #with col2:
-
-        #    preview_html = f"""
-        #    <div style="background:#f3f2ef;padding:20px;">
-        #        <div style="background:white;padding:16px;border-radius:10px;">
-        #            <b>Your Name</b><br><br>
-        #            <div style="white-space:pre-wrap;">
-        #                {linkedin_message}
-        #            </div>
-        #        </div>
-        #    </div>
-        #    """
-
-        #    components.html(preview_html, height=350)
-
-        # -----------------------
-        # APPLY FORMATTING
-        # -----------------------
-
-        #if st.button("Apply Formatting"):
-
-            #text = st.session_state.linkedin_msg
-
-            #if action == "Bold":
-            #    func = to_unicode_bold
-            #elif action == "Bullets":
-            #    func = add_bullet
-            #else:
-            #    func = add_emoji
-
-            #if mode == "All":
-            #    new_text = func(text)
-            #else:
-           #     new_text = apply_to_lines(text, start_line, end_line, func)
-
-            #st.session_state.linkedin_msg = new_text
-            #st.rerun()
 
         preview_text = linkedin_message
 
@@ -461,86 +404,5 @@ def show_campaingns():
             st.write(msgs)
         if demo:
             st.info("Demo Mode: Showing completed campaign flow")
-            #for m in msgs:
-            #    with st.expander(f"{m.get('lead')} - {m.get('company')}"):
-            #        st.write(m.get("message"))
-        # 👁 Preview
-        #if col4.button("Preview Campaign Message", key=f"preview_{row['id']}"):
-            #msgs = requests.post(
-            #    f"{API_URL}/reachouts/campaign/{row['id']}/generate"
-            #).json()
-
-            #st.session_state[f"preview_{row['id']}"] = msgs
-        #    st.session_state[f"preview_{row['id']}"] = row.get("preview_messages", [])
-
-        # ▶ Run
-        #disabled = (row.get("status") == "COMPLETED" or row.get("status") == "completed")
-
-        #if col5.button("Run", key=f"run_{row['id']}", disabled=disabled):
-        #    requests.post(f"{API_URL}/campaigns/{row['id']}/start")
-        #    st.success("Campaign started")
-        #    st.rerun()
-
-        # 👇 Show preview below row
-       # if st.session_state.get(f"preview_{row['id']}"):
-
-       #     for m in st.session_state[f"preview_{row['id']}"]:
-       #         with st.expander(f"{m['lead']} - {m['company']}"):
-       #             st.write(m["message"])
-
-    #campaign_id = None
-
-    #if not df.empty:
-
-    #    campaign_options = {
-    #        row["name"]: row["id"]
-    #        for _, row in df.iterrows()
-    #    }
-
-    #    selected_campaign = st.selectbox(
-    #        "Campaigns",
-    #        list(campaign_options.keys())
-    #    )
-
-    #    campaign_id = campaign_options[selected_campaign]
-
-    #else:
-    #    st.warning("No campaigns available")
-
-
-    # ---------------------------------------
-    # START CAMPAIGN
-    # ---------------------------------------
-
-    #if campaign_id and st.button("Start Campaign"):
-
-    #    requests.post(f"{API_URL}/campaigns/{campaign_id}/start")
-
-    #    st.success("Campaign executed, Reachouts Generated")
-
-
-    # ---------------------------------------
-    # PREVIEW MESSAGES
-    # ---------------------------------------
-
-    #if campaign_id and st.button("Preview Campaign Messages"):
-
-    #    resp = requests.post(
-    #        f"{API_URL}/reachouts/campaign/{campaign_id}/generate"
-    #    )
-
-    #    if resp.status_code == 200:
-
-    #        msgs = resp.json()
-
-    #        df_msgs = pd.DataFrame(msgs)
-
-    #        st.dataframe(df_msgs)
-
-    #        for m in msgs:
-
-    #            with st.expander(f"{m['lead']} - {m['company']}"):
-    #                st.write(m["message"])
-
-    #    else:
-    #        st.error("Message generation failed")
+            st.success("Step 2: Campaign executed → LinkedIn outreach sent")
+            

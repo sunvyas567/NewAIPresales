@@ -24,11 +24,14 @@ def show_pipeline():
 
     st.title("Opportunity Pipeline")
 
+    if st.session_state.get("demo_mode", False):
+        st.success("Shows the current sales pipeline with opportunities categorized by stage. Allows 'Next Stage' to move opportunities through the pipeline and see real-time updates.")
+
     res = requests.get(f"{API_URL}/crm/health")
 
     status = res.json()
 
-    print("CRM status in pipeline", status)
+    #print("CRM status in pipeline", status)
 
     if status["status"] == "offline":
         st.warning("CRM integration unavailable")
@@ -41,7 +44,7 @@ def show_pipeline():
         return
     data = res.json()
 
-    print("Pipeline data", data)
+    #print("Pipeline data", data)
     #return
     total_deals = sum(len(v) for v in data.values())
 

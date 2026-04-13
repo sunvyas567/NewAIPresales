@@ -10,11 +10,15 @@ def show_leads():
 
     st.title("Leads")
     demo = st.session_state.get("demo_mode", False)
+    if demo:
+        st.success("Step 1: Leads data loaded → Ready for campaign execution")
     tab1, tab2 = st.tabs(["Upload", "View"])
 
     with tab1:
         if demo:
-            st.info("Demo Mode: Using sample leads data")
+            st.info("Demo Mode: Using sample leads data, click view tab to see leads table")
+
+            
         else:
             file = st.file_uploader("Upload CSV", type=["csv"])
 
@@ -37,3 +41,6 @@ def show_leads():
         if leads:
             df = pd.DataFrame(leads)
             st.dataframe(df)
+
+        if demo:
+            st.success("Step 1: Leads data loaded → Ready for campaign execution")

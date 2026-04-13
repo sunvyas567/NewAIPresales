@@ -14,6 +14,9 @@ def show_opportunties():
     # -------------------------
     demo = st.session_state.get("demo_mode", False)
 
+    if demo:
+        st.success("Step 4: Opportunity created from Eligible Reachouts → AI suggestions available")
+
     st.subheader("Convert Reachouts")
 
     reachouts = requests.get(
@@ -126,24 +129,7 @@ def show_opportunties():
     Template: {ai.get('recommended_template')}
     """)
 
-            # -----------------
+    # -----------------
+   
             # Actions
             # -----------------
-
-            #colA, colB, colC = st.columns(3)
-
-            #if colA.button("Go to Proposal", key=f"p_{opp['id']}"):
-            #    st.session_state["selected_opp"] = opp["id"]
-            #    st.switch_page("pages/4_proposals.py")
-
-            #if colB.button("Sync CRM", key=f"sync_{opp['id']}"):
-            #    requests.post(
-            #        f"{API_URL}/opportunities/{opp['id']}/sync-crm",
-            #        headers=headers()
-            #    )
-            #    st.rerun()
-
-            #if colC.button("Template Flow", key=f"t_{opp['id']}"):
-            #    st.session_state["selected_opp"] = opp["id"]
-            #    st.session_state["use_ai"] = False
-            #    st.switch_page("pages/4_proposals.py")

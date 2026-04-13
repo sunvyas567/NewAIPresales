@@ -12,6 +12,8 @@ def show_collaterals():
 
     demo = st.session_state.get("demo_mode", False)
     
+    if demo:
+            st.success("Collaterals uploading for Campaigns (LinedklIn, Email), proposals attachment & generation")
     if not demo:
         title = st.text_input("Title")
         file = st.file_uploader("Upload", type=["pdf", "pptx"])
@@ -29,3 +31,4 @@ def show_collaterals():
     if data:
         df = pd.DataFrame(data)
         st.dataframe(df)
+    
