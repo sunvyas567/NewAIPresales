@@ -2,18 +2,9 @@ import streamlit as st
 import requests
 import pandas as pd
 import streamlit.components.v1 as components
-
 from users_ui import show_users
 from admin_ui import show_admin
 from dashboard_ui import show_pipeline
-from campaigns_ui import show_campaingns
-from collaterals_ui import show_collaterals
-from leads_ui import show_leads
-from opportunities_ui import show_opportunties
-from proposals_ui import show_proposals
-from reachouts_ui import show_reachouts
-from templates_ui import show_templates
-
 
 import os
 API_URL = os.getenv("API_URL")
@@ -22,34 +13,6 @@ def headers():
         return {
             "Authorization": f"Bearer {st.session_state.token}"
         }
-
-
-# ------------------------------
-# Helpers
-# ------------------------------
-
-def render_pipeline(stage):
-    stages = ["REACHOUT", "open", "OPPORTUNITY", "PROPOSAL", "NEGOTIATION", "SOW", "CLOSED"]
-    cols = st.columns(len(stages))
-    for i, s in enumerate(stages):
-        if s == stage:
-            cols[i].success(s)
-        elif stages.index(s) < stages.index(stage):
-            cols[i].info(s)
-        else:
-            cols[i].write(s)
-
-
-def badge(status):
-    if status in ["APPROVED", "CLOSED"]:
-        st.success(status)
-    elif status in ["PENDING", "IN_PROGRESS"]:
-        st.warning(status)
-    elif status in ["REJECTED"]:
-        st.error(status)
-    else:
-        st.info(status)
-
 
 def show_login():
 
@@ -112,49 +75,6 @@ def show_register():
                 st.error(f"Error {res.status_code}")
                 st.write(res.text)
             st.success(res.json())
-
-def preview_personalize(text, user_name):
-
-    replacements = {
-        "{{first_name}}": "there",
-        "{{company}}": "your organization",
-        "{{industry}}": "your industry",
-        "{{title}}": "your role",
-        "{{solution_area}}": "your solution area",
-        "{{sender_name}}": "Agent",
-        "{{your_name}}": user_name
-    }
-
-    for k, v in replacements.items():
-        text = text.replace(k, v)
-
-    return text
-def to_unicode_bold(text):
-    normal = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-    bold = "𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵"
-    return text.translate(str.maketrans(normal, bold))
-
-
-def apply_to_lines(text, start_line, end_line, func):
-    lines = text.split("\n")
-
-    for i in range(start_line-1, end_line):
-        if i < len(lines):
-            lines[i] = func(lines[i])
-
-    return "\n".join(lines)
-
-
-def add_bullet(line):
-    if line.strip():
-        return f"• {line}"
-    return line
-
-
-def add_emoji(line):
-    if line.strip():
-        return f"🚀 {line}"
-    return line
 def show_main_app():
 
     # ------------------------
@@ -198,8 +118,6 @@ def show_main_app():
 
     role = st.session_state.get("role")
     email = st.session_state.get("user")
-
-    #st.set_page_config(initial_sidebar_state="expanded")
     # ------------------------
     # AUTH
     # ------------------------
@@ -257,81 +175,6 @@ def show_main_app():
     # ------------------------
     # LEADS
     # ------------------------
-    elif menu == "Leads":
-        show_leads()
-    # ------------------------
-    # LEADS
-    # ------------------------
-    elif menu == "Collaterals":
-        show_collaterals()
-    # ------------------------
-    # CAMPAIGNS
-    # ------------------------
-    elif menu == "Campaigns":
-        show_campaingns()
-    # ------------------------
-    # LEADS
-    # ------------------------
-    elif menu == "Templates":
-        show_templates()
-    # ------------------------
-    # LEADS
-    # ------------------------
-    elif menu == "ReachOut":
-        show_reachouts()
-    # ------------------------
-    # LEADS
-    # ------------------------
-    elif menu == "Approvals":
-        st.title("Approve Proposal")
-
-        res = requests.get(f"{API_URL}/approvals/pending")
-
-        proposals = res.json()
-
-        for p in proposals:
-
-            st.write(p["title"])
-
-            col1, col2 = st.columns(2)
-
-            if col1.button("Approve", key=f"a{p['id']}"):
-                requests.post(f"{API_URL}/approvals/{p['id']}/approve")
-
-            if col2.button("Reject", key=f"r{p['id']}"):
-                requests.post(f"{API_URL}/approvals/{p['id']}/reject")
-
-        #approval_id = st.number_input("Approval ID", value=1)
-
-        #col1, col2 = st.columns(2)
-
-        #with col1:
-        #    if st.button("Approve"):
-        #        res = requests.post(
-        #            f"{API_URL}/approvals/{approval_id}/approve",
-        #            headers=headers()
-        #        )
-        #        st.json(res.json())
-
-        #with col2:
-        #    if st.button("Reject"):
-        #        res = requests.post(
-        #            f"{API_URL}/approvals/{approval_id}/reject",
-        #            headers=headers()
-        #        )
-        #        st.json(res.json())
-    # ------------------------
-    # LEADS
-    # ------------------------
     elif menu == "SystemConfig":
         show_admin()
-    # ------------------------
-    # LEADS
-    # ------------------------
-    elif menu == "Opportunities":
-        show_opportunties()
-    # ==============================
-    # PROPOSALS
-    # ==============================
-    elif menu == "Proposals & SoW":
-        show_proposals()
+    # ------------------

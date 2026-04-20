@@ -8,6 +8,7 @@ load_dotenv()
 
 API_URL = os.getenv("API_URL")
 
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 # ------------------------------------------------
 # Page Configuration
@@ -16,7 +17,8 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 st.set_page_config(
     page_title="Presales AI Platform",
     page_icon="🚀",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="expanded"
 )
 
 
