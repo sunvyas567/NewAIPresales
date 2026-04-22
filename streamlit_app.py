@@ -25,11 +25,11 @@ st.set_page_config(
 # -----------------------
 # HIDE DEFAULT SIDEBAR
 # -----------------------
-st.markdown("""
-<style>
-[data-testid="stSidebarNav"] {display: none;}
-</style>
-""", unsafe_allow_html=True)
+#st.markdown("""
+#<style>
+#[data-testid="stSidebarNav"] {display: none;}
+#</style>
+#""", unsafe_allow_html=True)
 
 # ------------------------------------------------
 # Global Styling
