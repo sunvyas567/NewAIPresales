@@ -50,18 +50,40 @@ header {visibility: hidden;}
 }
 
 
-/* Sidebar styling */
+/* Sidebar styling 
 section[data-testid="stSidebar"] {
     background-color: #0f172a;
-}
+} */
 
 
-/* Sidebar text color */
+/* Sidebar text color
 section[data-testid="stSidebar"] * {
     color: white !important;
-}
+} */
 
+ /* 1. Ensure the sidebar is actually visible */
+    [data-testid="stSidebarNav"] {
+        display: block !important;
+    }
 
+    /* 2. Set Sidebar Background */
+    section[data-testid="stSidebar"] {
+        background-color: #0f172a !important;
+    }
+
+    /* 3. Style only the navigation links, not every single element */
+    section[data-testid="stSidebar"] .st-emotion-cache-17l69k g, 
+    section[data-testid="stSidebar"] span {
+        color: white !important;
+    }
+
+    /* 4. Fix for the "Active" page background so text doesn't disappear */
+    [data-testid="stSidebarNavLink"] {
+        background-color: transparent !important;
+    }
+    [data-testid="stSidebarNavLink"]:hover {
+        background-color: #1e293b !important;
+    }
 /* Card styling */
 .card {
     padding: 14px;
