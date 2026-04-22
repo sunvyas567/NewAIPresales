@@ -41,7 +41,7 @@ st.markdown("""
 /* Hide Streamlit branding */
 #MainMenu {visibility: hidden;}
 footer {visibility: hidden;}
-header {visibility: hidden;}
+#header {visibility: hidden;}
 
 
 /* Reduce top padding */
@@ -49,17 +49,6 @@ header {visibility: hidden;}
     padding-top: 1.5rem;
 }
 
-
-/* Sidebar styling 
-section[data-testid="stSidebar"] {
-    background-color: #0f172a;
-} */
-
-
-/* Sidebar text color
-section[data-testid="stSidebar"] * {
-    color: white !important;
-} */
 
  /* 1. Ensure the sidebar is actually visible */
     [data-testid="stSidebarNav"] {
