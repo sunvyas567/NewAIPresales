@@ -144,6 +144,7 @@ def show_campaingns():
     #print("Collaterals fetched for campaign creation:", coll)
 
     if not coll:
+        coll_ids = []
         st.warning("No collaterals available")
     else:
         df_coll = pd.DataFrame(coll)
