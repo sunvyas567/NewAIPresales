@@ -41,6 +41,8 @@ def show_leads():
         if leads:
             df = pd.DataFrame(leads)
             st.dataframe(df)
+        else:
+            st.info("No leads available , please upload leads.")
 
         if demo:
             st.success("Step 1: Leads data loaded → Ready for campaign execution")

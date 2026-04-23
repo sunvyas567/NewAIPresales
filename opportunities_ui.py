@@ -89,7 +89,7 @@ def show_opportunties():
                 #st.button("Synced", disabled=True)
             else:
                 if col4.button("Sync CRM",disabled=demo):
-                    requests.post(f"{API_URL}/opportunities/{opp['id']}/sync-crm")
+                    requests.post(f"{API_URL}/opportunities/{opp['id']}/sync-crm",headers=headers())
                     st.rerun()
             #if crm_id:
             #    col4.success(f"CRM: {crm_id}")

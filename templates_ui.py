@@ -23,7 +23,8 @@ def show_templates():
     if st.button("Create", disabled=demo):
         requests.post(
             f"{API_URL}/templates/create",
-            json={"name": name, "body": body}
+            json={"name": name, "body": body},
+            headers=headers()
         )
         st.success("Created")
 

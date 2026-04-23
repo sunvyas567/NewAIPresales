@@ -1,5 +1,6 @@
 import streamlit as st
 import requests
+from utils import headers
 
 import os
 API_URL = os.getenv("API_URL")
@@ -33,7 +34,8 @@ def show_users():
                 "email": email,
                 "password": password,
                 "role": role
-            }
+            },
+            headers=headers()
         )
 
         st.success("User created")
@@ -61,7 +63,7 @@ def show_users():
             col3.button("Delete", disabled=True, key=f"del_{u['id']}")
         else:
             if col3.button("Delete", key=f"del_{u['id']}",disabled=demo):
-                requests.delete(f"{API_URL}/users/{u['id']}")
+                requests.delete(f"{API_URL}/users/{u['id']}",headers=headers())
                 st.rerun()
         #if col3.button("Delete", key=f"user_{u['id']}"):
 

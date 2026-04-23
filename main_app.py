@@ -80,7 +80,7 @@ def show_login():
         st.session_state.plan = data["plan"]
 
         user = requests.get(
-            f"{API_URL}/users/by-email/{email}"
+            f"{API_URL}/users/by-email/{email}",headers=headers()
         ).json()
 
         st.session_state.role = user["role"]
@@ -105,13 +105,13 @@ def show_register():
             })
             if res.status_code == 200:
                 try:
-                    st.json(res.json())
+                    st.write("Registration Successful")
                 except:
                     st.write(res.text)
             else:
                 st.error(f"Error {res.status_code}")
                 st.write(res.text)
-            st.success(res.json())
+            #st.success(res.json())
 
 def preview_personalize(text, user_name):
 

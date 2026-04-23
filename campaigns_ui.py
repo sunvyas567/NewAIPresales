@@ -115,17 +115,21 @@ def show_campaingns():
 
     if campaign_type != "linkedin" and not st.session_state.get("demo_mode", False):
 
-        leads = requests.get(f"{API_URL}/leads").json()
-        df_leads = pd.DataFrame(leads)
+        leads = requests.get(f"{API_URL}/leads", headers=headers()).json()
 
-        selected_leads = st.multiselect(
-            "Select Leads",
-            df_leads["name"] if not df_leads.empty else []
-        )
+        if leads:
+            df_leads = pd.DataFrame(leads)
 
-        lead_ids = df_leads[
-            df_leads["name"].isin(selected_leads)
-        ]["id"].tolist()
+            selected_leads = st.multiselect(
+                "Select Leads",
+                df_leads["name"] if not df_leads.empty else []
+            )
+
+            lead_ids = df_leads[
+                df_leads["name"].isin(selected_leads)
+            ]["id"].tolist()
+        else:
+            st.info("o leads avaialble please upload leads.")
 
     else:
         st.info("LinkedIn campaigns do not require lead selection.")
@@ -318,7 +322,8 @@ def show_campaingns():
 
         res = requests.post(
             f"{API_URL}/campaigns/create",
-            json=payload
+            json=payload,
+            headers=headers()
         )
 
         if res.status_code == 200:
@@ -391,7 +396,7 @@ def show_campaingns():
         disabled = (row.get("status") in ["COMPLETED", "completed"])
 
         if col5.button("Run", key=f"run_{row['id']}", disabled=disabled):
-            requests.post(f"{API_URL}/campaigns/{row['id']}/start")
+            requests.post(f"{API_URL}/campaigns/{row['id']}/start",headers=headers())
             st.success("Campaign started")
             st.rerun()
 
