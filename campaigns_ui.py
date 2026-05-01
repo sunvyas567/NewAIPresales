@@ -290,7 +290,7 @@ def show_campaingns():
             preview_html = f"""
             <div style="background:#f3f2ef;padding:20px;">
                 <div style="background:white;padding:16px;border-radius:10px;">
-                    <b>Your Name</b><br><br>
+                    <b>{name}</b><br><br>
                     <div style="white-space:pre-line;padding-left: 0;:margin-left: 0;;font-size:14px;">
                     {linkedin_message.strip()}
                     </div>
